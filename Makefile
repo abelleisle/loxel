@@ -1,2 +1,2 @@
 @all:
-	g++ main.cpp -o main -llua
+	g++ -m64 main.cpp -o main -llua5.3

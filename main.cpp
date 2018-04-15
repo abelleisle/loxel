@@ -1,4 +1,4 @@
-#include <lua.hpp>
+#include <lua5.3/lua.hpp>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -28,7 +28,6 @@ private:
     
 public:
     Block() {}
-
     ~Block() {}
 
     void setName(std::string n) {this->name = n;}  
@@ -42,6 +41,11 @@ public:
     int getID() {return id;}
     int getDurability() {return durability;}
     int getOnClick() {return onClick;}
+
+    void click(lua_State *L) {
+        lua_rawgeti(L, LUA_REGISTRYINDEX, onClick);
+        lua_pcall(L, 0, 0, 0);
+    }
 
     friend std::ostream &operator<<(std::ostream &os, Block &o) {
         os << "Name: " << o.getName() << std::endl
@@ -59,8 +63,7 @@ private:
     const static Vec3 size;
 
 public:
-    Chunk(Vec3 offset):this.offset(offset){
-         
+    Chunk(Vec3 offset):offset(offset){
     }
 
     Chunk generate() {
@@ -71,15 +74,22 @@ public:
 class World {
 private:
     std::vector<Block> blocks;
+    lua_State *L;
 
 public:
     World(){}
     ~World(){}
 
+    void createLuaInstance(lua_State *L) {
+        this->L = L;
+    }
+
     void addBlock(Block b) {blocks.push_back(b);}
     void printBlocks() {
         for (auto &b : blocks) {
-            std::cout << b << std::endl;
+            std::cout << b;
+            b.click(L);
+            std::cout << std::endl;
         }
     }
 };
@@ -120,6 +130,7 @@ World w;
 static int create_block(lua_State *L)
 {
     Block b;
+
     std::string name;
     std::string tmps;
     int tmpn;
@@ -176,7 +187,9 @@ int main(int argc, char** argv)
 	//lua_rawgeti(L, LUA_REGISTRYINDEX, ref);
 	//lua_pcall(L, 0, 0, 0);
     
+    w.createLuaInstance(L);
     w.printBlocks();
+
 
 	lua_close(L);
 
