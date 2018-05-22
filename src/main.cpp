@@ -185,7 +185,7 @@ int main()
 
 	lua_register(L, "create_block", create_block);
 
-	luaL_loadfile(L, "load.lua");
+	luaL_loadfile(L, "scripts/load.lua");
 	lua_pcall(L, 0, 0, 0);
 
 	//lua_rawgeti(L, LUA_REGISTRYINDEX, ref);
