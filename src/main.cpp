@@ -1,7 +1,12 @@
+//#include <LuaJIT/lua.hpp>
 #include <lua5.3/lua.hpp>
+#include <LuaBridge/LuaBridge.h>
 #include <iostream>
 #include <string>
 #include <vector>
+#include <exception>
+
+#include <game.hpp>
 
 class Vec2 {
 public:
@@ -63,12 +68,8 @@ private:
     const static Vec3 size;
 
 public:
-    Chunk(Vec3 offset):offset(offset){
-    }
-
-    Chunk generate() {
-               
-    }
+    Chunk(Vec3 offset):offset(offset){}
+    //Chunk generate(){return this;}
 };
 
 class World {
@@ -125,7 +126,7 @@ static void stackDump (lua_State *L)
 	printf("\n");  /* end the listing */
 }
 
-World w;
+static World w;
 
 static int create_block(lua_State *L)
 {
@@ -159,7 +160,7 @@ static int create_block(lua_State *L)
 		}
 		
         if (name == "name") {
-            b.setName(tmps);
+           b.setName(tmps);
         } else if (name == "id") {
             b.setID(tmpn);
         } else if (name == "durability") {
@@ -168,13 +169,16 @@ static int create_block(lua_State *L)
             b.setModel(tmps);
         } else if (name == "onclick") {
             b.setOnClick(tmpf);
+        } else {
+            (void)tmpb;
         }
 	}
     
     w.addBlock(b);
+    return 0;
 }
 
-int main(int argc, char** argv)
+int main()
 {
 	lua_State *L = luaL_newstate();
 	luaL_openlibs(L);
@@ -186,10 +190,11 @@ int main(int argc, char** argv)
 
 	//lua_rawgeti(L, LUA_REGISTRYINDEX, ref);
 	//lua_pcall(L, 0, 0, 0);
+
+    stackDump(L);
     
     w.createLuaInstance(L);
     w.printBlocks();
-
 
 	lua_close(L);
 

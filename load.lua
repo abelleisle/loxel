@@ -1,9 +1,9 @@
 function place()
-	print("Placed")
+	print("Placing cobble")
 end
 
 function updateGrass()
-    print ("TODO update grass")
+    print ("Grass is green")
 end
 
 create_block({name = "Cobblestone",
