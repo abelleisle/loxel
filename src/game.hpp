@@ -17,14 +17,13 @@
 class Game
 {
     private:
-        Display display;
-
         int deltaTime;
+        int cycles;
     public:
         Game();
         ~Game();
 
-        void init();
+        virtual void init() = 0;
 };
 
 #endif // GAME_HPP

@@ -13,6 +13,7 @@ class Display
         std::string title;
         vec2<int> screenSize;
     public:
+        Display();
         Display(std::string, int, int);
 };
 

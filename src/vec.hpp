@@ -8,9 +8,7 @@ class vec2
         T x;
         T y;
 
-        vec2(T x, T y): x(x), y(y) {}
+        vec2(T x = 0, T y = 0): x(x), y(y) {}
 };
-
-template <> class vec2<float>;
 
 #endif // VEC_HPP

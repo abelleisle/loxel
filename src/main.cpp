@@ -6,7 +6,7 @@
 #include <vector>
 #include <exception>
 
-#include <game.hpp>
+#include <client/client.hpp>
 
 class Vec2 {
 public:
@@ -197,6 +197,9 @@ int main()
     w.printBlocks();
 
 	lua_close(L);
+
+    Client g = Client();
+    (void)g;
 
 	return 0;
 }
