@@ -22,5 +22,5 @@ void Script::loadfile(std::string filename)
 {
     if(luaL_loadfile(state, filename.c_str()) != 0)
         throw ScriptException::FileNotFound(filename);
-
+    lua_pcall(state, 0, 0, 0);
 }
