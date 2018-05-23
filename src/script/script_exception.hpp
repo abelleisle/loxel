@@ -14,16 +14,17 @@ namespace ScriptException
             {};
             
             FileNotFound(std::string filename)
-                : filename(filename)
-            {}
-
-            virtual const char* what() const throw()
             {
-                return "File not found!";
+                message = std::string("File not found: " + filename);
+            };
+
+            const char* what() const throw()
+            {
+                return message.c_str();
             }
 
         private:
-           std::string filename;
+           std::string message;
     };
 }
 

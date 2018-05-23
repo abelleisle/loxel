@@ -20,9 +20,9 @@ void Client::init()
     display = Display("loxel", 1920, 1080);
     display.create();
 
-    Script s;
+    Script config;
     try {
-        s.loadfile("scripts/load.lua");
+        config.loadfile("config/loxel.conf");
     } catch (std::exception &e) {
         std::cerr << e.what() << std::endl;
     }
