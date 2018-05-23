@@ -198,8 +198,8 @@ int main()
 
 	lua_close(L);
 
-    Client g = Client();
-    (void)g;
+    Game *c = new Client();
+    c->init();
 
 	return 0;
 }

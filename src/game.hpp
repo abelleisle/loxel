@@ -4,7 +4,6 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 
-#include <SDL2/SDL.h>
 
 #define GLM_FORCE_RADIANS
 #include <glm/glm.hpp>
@@ -12,13 +11,12 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/noise.hpp>
 
-#include <display.hpp>
-
 class Game
 {
     private:
+    protected:
         int deltaTime;
-        int cycles;
+        unsigned long long cycles;
     public:
         Game();
         ~Game();
