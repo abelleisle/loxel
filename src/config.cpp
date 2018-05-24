@@ -78,10 +78,13 @@ void Configuration::writeConfig()
     std::fstream file;
     file.open(configFile, std::fstream::out);
 
+    // go through every item and try casting it as every possible type of
+    // lua variable
+    //      yeah... this is gross. pretend you don't see it.
     for (auto it : configItems) {
         try {
             std::string s_value = std::experimental::any_cast<std::string>(it.second);
-            file << it.first << " = " << s_value << std::endl;
+            file << it.first << " = \"" << s_value << "\"" << std::endl;
         } catch (std::experimental::bad_any_cast &s_bac) {
             try {
                 double d_value = std::experimental::any_cast<double>(it.second);

@@ -33,17 +33,20 @@ void Client::init()
     // Initialize configs and their default values
     clientConfig.addItem("monitor_width", 1280);
     clientConfig.addItem("monitor_height", 720);
+    clientConfig.addItem("game_title", std::string("loxel"));
 
     clientConfig.readConfig();
 
     double width;
     double height;
+    std::string title;
 
     try {
         width = clientConfig.getItem<double>("monitor_width");
         height = clientConfig.getItem<double>("monitor_height");
+        title = clientConfig.getItem<std::string>("game_title");
     } catch (std::exception &oof) {}
 
-    display = Display("loxel", static_cast<int>(width), static_cast<int>(height));
+    display = Display(title, static_cast<int>(width), static_cast<int>(height));
     display.create();
 }
