@@ -12,6 +12,7 @@ class Configuration
         Script script;
         std::string configFile;
 		std::unordered_map<std::string, std::experimental::any> configItems;
+        bool rewriteFile;
     public:
         Configuration();
         Configuration(std::string);
@@ -22,9 +23,17 @@ class Configuration
         bool addItem(std::string);
         bool setItem(std::string, std::experimental::any);
 		std::experimental::any getItem(std::string);
+        template <typename T>
+        T getItem(std::string key)
+        {
+            return std::experimental::any_cast<T>(
+                getItem(key)
+            );
+        }
 
         void readConfig();
         void createfile(std::string);
+        void writeConfig();
 };
 
 #endif // CONFIG_HPP

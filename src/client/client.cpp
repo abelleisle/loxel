@@ -35,21 +35,15 @@ void Client::init()
     clientConfig.addItem("monitor_height", 720);
 
     clientConfig.readConfig();
-    
-    try {
-        std::cout << std::experimental::any_cast<double>(
-                clientConfig.getItem("monitor_width")
-        ) << std::endl;
-    } catch (std::exception &oof) {}
+
+    double width;
+    double height;
 
     try {
-        std::cout << std::experimental::any_cast<double>(
-                clientConfig.getItem("monitor_height")
-        ) << std::endl;
+        width = clientConfig.getItem<double>("monitor_width");
+        height = clientConfig.getItem<double>("monitor_height");
     } catch (std::exception &oof) {}
 
-
-
-    display = Display("loxel", 1920, 1080);
+    display = Display("loxel", static_cast<int>(width), static_cast<int>(height));
     display.create();
 }
