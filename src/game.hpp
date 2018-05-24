@@ -26,7 +26,7 @@ class Game
         std::thread inputThread;
     public:
         Game();
-        ~Game();
+        virtual ~Game();
 
         virtual void init() = 0;
         virtual void loop() = 0;

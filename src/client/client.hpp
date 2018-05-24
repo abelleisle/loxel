@@ -15,7 +15,7 @@ class Client : public Game
         void gameLoop();
     public:
         Client();
-       ~Client();
+        virtual ~Client();
 
         void init();
         void loop();

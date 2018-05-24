@@ -205,6 +205,8 @@ int main()
     c->graphics();
     c->cleanup();
 
+    delete c;
+
     return 0;
 }
 

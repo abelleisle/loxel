@@ -8,7 +8,9 @@ InputHandler::InputHandler(Game* client)
 {}
 
 InputHandler::~InputHandler()
-{}
+{
+    client = NULL;
+}
 
 void InputHandler::inputLooper()
 {
