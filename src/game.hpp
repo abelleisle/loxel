@@ -1,6 +1,8 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 
+#include <thread>
+
 #define GLEW_STATIC
 #include <GL/glew.h>
 
@@ -17,11 +19,20 @@ class Game
     protected:
         int deltaTime;
         unsigned long long cycles;
+
+        bool running;
+
+        std::thread gameThread;
+        std::thread inputThread;
     public:
         Game();
         ~Game();
 
         virtual void init() = 0;
+        virtual void loop() = 0;
+        virtual void input() = 0;
+        virtual void graphics() = 0;
+        virtual void cleanup() = 0;
 };
 
 #endif // GAME_HPP

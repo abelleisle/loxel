@@ -6,6 +6,9 @@
 #include <iostream>
 #include <exception>
 #include <stdexcept>
+#include <functional>
+#include <thread>
+#include <chrono>
 
 Client::Client()
 {
@@ -49,4 +52,28 @@ void Client::init()
 
     display = Display(title, static_cast<int>(width), static_cast<int>(height));
     display.create();
+}
+
+void Client::gameLoop()
+{
+    std::this_thread::sleep_for(std::chrono::milliseconds(5000));
+}
+
+void Client::loop()
+{
+    gameThread = std::thread(&Client::gameLoop, this);
+}
+
+void Client::input()
+{}
+
+void Client::graphics()
+{}
+
+void Client::cleanup()
+{
+    if (gameThread.joinable())
+        gameThread.join();
+    if (inputThread.joinable())
+        inputThread.join();
 }

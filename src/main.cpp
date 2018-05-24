@@ -200,6 +200,10 @@ int main()
 
     Game *c = new Client();
     c->init();
+    c->loop();
+    c->input();
+    c->graphics();
+    c->cleanup();
 
     return 0;
 }
