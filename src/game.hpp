@@ -33,6 +33,9 @@ class Game
         virtual void input() = 0;
         virtual void graphics() = 0;
         virtual void cleanup() = 0;
+
+        bool isRunning();
+        void stopGame();
 };
 
 #endif // GAME_HPP

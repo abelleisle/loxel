@@ -4,11 +4,13 @@
 #include <game.hpp>
 
 #include <client/display.hpp>
+#include <client/input_handler.hpp>
 
 class Client : public Game
 {
     private:
         Display display;
+        InputHandler inputHandler;
 
         void gameLoop();
     public:

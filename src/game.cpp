@@ -6,12 +6,19 @@ Game::Game()
     cycles = 0;
 
     running = true;
-
-    gameThread = std::thread();
-    inputThread = std::thread();
 }
 
 Game::~Game()
 {
 
+}
+
+bool Game::isRunning()
+{
+    return running;
+}
+
+void Game::stopGame()
+{
+    running = false;
 }

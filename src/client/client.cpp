@@ -12,7 +12,7 @@
 
 Client::Client()
 {
-
+    inputHandler = InputHandler(this);
 }
 
 Client::~Client()
@@ -56,7 +56,9 @@ void Client::init()
 
 void Client::gameLoop()
 {
-    std::this_thread::sleep_for(std::chrono::milliseconds(5000));
+    while (running) {
+
+    }
 }
 
 void Client::loop()
@@ -65,10 +67,16 @@ void Client::loop()
 }
 
 void Client::input()
-{}
+{
+    inputThread = std::thread(&InputHandler::inputLooper, inputHandler);
+}
 
 void Client::graphics()
-{}
+{
+    while (running) {
+
+    }
+}
 
 void Client::cleanup()
 {
