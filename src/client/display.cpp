@@ -9,12 +9,7 @@ Display::Display(std::string title, int width, int height)
 
     SDL_Init(SDL_INIT_VIDEO);
 
-    // Select an OpenGL 2.1 profile.
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 6);
-
     window = nullptr;
-    context = nullptr;
 }
 
 Display::Display()
@@ -29,7 +24,7 @@ void Display::create()
         screenSize.x, screenSize.y,
         SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL);
 
-    context = SDL_GL_CreateContext(window);
+    SDL_SetRelativeMouseMode(SDL_TRUE);
 }
 
 SDL_Window* Display::getWindow()
@@ -39,8 +34,6 @@ SDL_Window* Display::getWindow()
 
 Display::~Display()
 {
-    if (context != nullptr)
-        SDL_GL_DeleteContext(context);
     if (window != nullptr)
         SDL_DestroyWindow(window);
 

@@ -5,11 +5,14 @@
 
 #include <client/display.hpp>
 #include <client/input_handler.hpp>
+#include <client/graphics_engine.hpp>
+#include <client/shader.hpp>
 
 class Client : public Game
 {
     private:
         Display display;
+        GraphicsEngine graphicsEngine;
         InputHandler inputHandler;
 
         void gameLoop();
@@ -22,6 +25,8 @@ class Client : public Game
         void input();
         void graphics();
         void cleanup();
+
+        Display* getDisplay();
 };
 
 #endif // CLIENT_HPP

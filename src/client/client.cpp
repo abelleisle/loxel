@@ -12,7 +12,6 @@
 
 Client::Client()
 {
-    inputHandler = InputHandler(this);
 }
 
 Client::~Client()
@@ -50,14 +49,21 @@ void Client::init()
         title = clientConfig.getItem<std::string>("game_title");
     } catch (std::exception &oof) {}
 
+    // TODO error handling
+
     display = Display(title, static_cast<int>(width), static_cast<int>(height));
     display.create();
+
+    graphicsEngine = GraphicsEngine(this);
+    graphicsEngine.init();
+
+    inputHandler = InputHandler(this);
 }
 
 void Client::gameLoop()
 {
     while (running) {
-
+        
     }
 }
 
@@ -73,9 +79,7 @@ void Client::input()
 
 void Client::graphics()
 {
-    while (running) {
-
-    }
+    graphicsEngine.drawLoop();
 }
 
 void Client::cleanup()
@@ -84,4 +88,9 @@ void Client::cleanup()
         gameThread.join();
     if (inputThread.joinable())
         inputThread.join();
+}
+
+Display* Client::getDisplay()
+{
+    return &display;
 }

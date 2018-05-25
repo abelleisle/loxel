@@ -14,7 +14,6 @@ class Display
         vec2<int> screenSize;
 
         SDL_Window *window;
-        SDL_GLContext context;
     public:
         Display();
         Display(std::string, int, int);
