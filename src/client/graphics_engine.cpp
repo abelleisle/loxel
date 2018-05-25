@@ -61,6 +61,8 @@ int GraphicsEngine::init()
 
     glUseProgram(world.getProgram());
 
+    glPolygonOffset(1.0, 1.0);
+
     glClearColor(0.6, 0.8, 1.0, 0.0);
 
     return 0;
@@ -74,7 +76,10 @@ int GraphicsEngine::drawLoop()
     GLint m = shaders.at("world").getUniform("model");
     GLuint s = shaders.at("world").getProgram();
 
-    glm::vec3 cpos = glm::vec3(0.0, 0.0, 1.0);
+    std::cout << a << "," << p << "," << v << "," << m << std::endl;
+    std::cout << s << std::endl;
+
+    glm::vec3 cpos = glm::vec3(0.0, 0.0, 10.0);
     //glm::vec3 crot = glm::vec3(0.0, 0.0, 0.0);
 
     static const GLfloat tri_data[] = {
@@ -88,8 +93,8 @@ int GraphicsEngine::drawLoop()
                                      glm::vec3(0.0f, 0.0f, 0.0f), 
                                      glm::vec3(0.0f, 1.0f, 0.0f));
 
-        glm::mat4 projection = glm::perspective(45.0f, 
-                                                1.0f*(1280.0f/720.0f), 
+        glm::mat4 projection = glm::perspective(90.0f, 
+                                                (1280.0f/720.0f), 
                                                 0.01f, 
                                                 2048.0f);
 
