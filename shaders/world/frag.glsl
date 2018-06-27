@@ -1,4 +1,4 @@
-#version 460
+#version 450
 
 #ifdef GL_FRAGMENT_PRECISION_HIGH
 precision highp float;

@@ -1,6 +1,6 @@
 //#include <LuaJIT/lua.hpp>
-#include <lua5.3/lua.hpp>
-#include <LuaBridge/LuaBridge.h>
+#include <lua/lua.hpp>
+//#include <LuaBridge/LuaBridge.h>
 #include <iostream>
 #include <string>
 #include <vector>
