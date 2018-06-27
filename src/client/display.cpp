@@ -1,4 +1,3 @@
-
 #include <client/display.hpp>
 #include <vec.hpp>
 

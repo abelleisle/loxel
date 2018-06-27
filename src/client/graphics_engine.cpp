@@ -25,9 +25,11 @@ GraphicsEngine::~GraphicsEngine()
 
 int GraphicsEngine::init()
 {
-    // Select an OpenGL 2.1 profile.
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 5);
+    // Select an OpenGL 4.5 profile.
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
+
+    client->getDisplay()->create();
 
     context = SDL_GL_CreateContext(client->getDisplay()->getWindow()); 
 

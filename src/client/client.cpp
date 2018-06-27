@@ -52,9 +52,9 @@ void Client::init()
     // TODO error handling
 
     display = Display(title, static_cast<int>(width), static_cast<int>(height));
-    display.create();
 
     graphicsEngine = GraphicsEngine(this);
+    // this creates the window
     graphicsEngine.init();
 
     inputHandler = InputHandler(this);
