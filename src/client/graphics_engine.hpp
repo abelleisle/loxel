@@ -14,18 +14,23 @@
 
 #include <game.hpp>
 #include <client/shader.hpp>
+#include <client/camera.hpp>
 
 class GraphicsEngine
 {
     private:
         SDL_GLContext context;
+        SDL_Window* window;
 
         Game* client;
+        Camera cam;
         std::unordered_map<std::string, Shader> shaders;
     public:
         GraphicsEngine();
         GraphicsEngine(Game*);
        ~GraphicsEngine();
+
+        Camera* getCamera();
     
         int init();
         int drawLoop();

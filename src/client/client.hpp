@@ -7,6 +7,7 @@
 #include <client/input_handler.hpp>
 #include <client/graphics_engine.hpp>
 #include <client/shader.hpp>
+#include <client/camera.hpp>
 
 class Client : public Game
 {

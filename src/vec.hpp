@@ -11,4 +11,15 @@ class vec2
         vec2(T x = 0, T y = 0): x(x), y(y) {}
 };
 
+template <typename T>
+class vec3
+{
+    public:
+        T x;
+        T y;
+        T z;
+
+        vec3(T x = 0, T y = 0, T z = 0): x(x), y(y), z(z) {}
+};
+
 #endif // VEC_HPP

@@ -25,7 +25,7 @@ GraphicsEngine::~GraphicsEngine()
 
 int GraphicsEngine::init()
 {
-    // Select an OpenGL 4.5 profile.
+    // Select an OpenGL 3.0 profile.
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
 
@@ -67,6 +67,8 @@ int GraphicsEngine::init()
 
     glClearColor(0.6, 0.8, 1.0, 0.0);
 
+    cam = Camera();
+
     return 0;
 }
 
@@ -81,26 +83,28 @@ int GraphicsEngine::drawLoop()
     std::cout << a << "," << p << "," << v << "," << m << std::endl;
     std::cout << s << std::endl;
 
-    glm::vec3 cpos = glm::vec3(0.0, 0.0, 10.0);
-    //glm::vec3 crot = glm::vec3(0.0, 0.0, 0.0);
-
-    static const GLfloat tri_data[] = {
+    static GLfloat tri_data[] = {
         -1.0, -1.0, 0.0,
         1.0, -1.0, 0.0,
         0.0, 1.0, 0.0,
     };
 
+    cam.pos = glm::vec3(0.0, 0.0, 5.0);
+    cam.angle = glm::vec3(0.0, 0.0, 0.0);
+
     while (client->isRunning()) {
-        glm::mat4 view = glm::lookAt(cpos, 
-                                     glm::vec3(0.0f, 0.0f, 0.0f), 
+        glm::mat4 view = glm::lookAt(cam.pos,
+                                     cam.pos+cam.angle, 
                                      glm::vec3(0.0f, 1.0f, 0.0f));
 
-        glm::mat4 projection = glm::perspective(90.0f, 
+        glm::mat4 projection = glm::perspective(45.0f, 
                                                 (1280.0f/720.0f), 
                                                 0.01f, 
                                                 2048.0f);
 
         glm::mat4 model = glm::mat4(1.0f);
+
+        glUseProgram(s);
 
         glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
         glEnable(GL_DEPTH_TEST);
@@ -109,10 +113,8 @@ int GraphicsEngine::drawLoop()
         glUniformMatrix4fv(p, 1, GL_FALSE, glm::value_ptr(projection));
         glUniformMatrix4fv(m, 1, GL_FALSE, glm::value_ptr(model));
 
-        //glEnable(GL_CULL_FACE);
+        glEnable(GL_CULL_FACE);
         glEnable(GL_POLYGON_OFFSET_FILL);
-
-        glUseProgram(s);
 
         glEnableVertexAttribArray(a);
 
@@ -122,8 +124,7 @@ int GraphicsEngine::drawLoop()
         
         glGenBuffers(1, &tri_vbo);
         glBindBuffer(GL_ARRAY_BUFFER, tri_vbo);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(tri_data), 
-                tri_data, GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(tri_data), tri_data, GL_STREAM_DRAW);
 
         glVertexAttribPointer(a, 3, GL_FLOAT, GL_FALSE, 0, 0);
         glDrawArrays(GL_TRIANGLES, 0, 3);
@@ -146,4 +147,9 @@ int GraphicsEngine::drawLoop()
 void GraphicsEngine::addShader(std::string shaderName, Shader shader)
 {
     shaders.emplace(shaderName, shader);
+}
+
+Camera* GraphicsEngine::getCamera()
+{
+    return &cam;
 }

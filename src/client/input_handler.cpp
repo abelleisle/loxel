@@ -1,4 +1,6 @@
 #include <client/input_handler.hpp>
+#include <client/camera.hpp>
+#include <client/graphics_engine.hpp>
 
 InputHandler::InputHandler()
 {}
