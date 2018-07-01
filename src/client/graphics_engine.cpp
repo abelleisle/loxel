@@ -1,37 +1,44 @@
 #include <client/graphics_engine.hpp>
-#include <client/display.hpp>
 
 #include <iostream>
 
 GraphicsEngine::GraphicsEngine()
 {
-    client = nullptr;
-    context = nullptr;
-}
-
-GraphicsEngine::GraphicsEngine(Game* client)
-    : client(client)
-{
-    context = nullptr;
+    // Initialize configs and their default values
+    GameState::clientConfig.addItem("monitor_width", 1280);
+    GameState::clientConfig.addItem("monitor_height", 720);
+    GameState::clientConfig.addItem("game_title", std::string("loxel"));
 }
 
 GraphicsEngine::~GraphicsEngine()
 {
     if (context != nullptr)
         SDL_GL_DeleteContext(context);
-
-    client = NULL;
 }
 
 int GraphicsEngine::init()
 {
+
+    double width;
+    double height;
+    std::string title;
+
+    try {
+        width = GameState::clientConfig.getItem<double>("monitor_width");
+        height = GameState::clientConfig.getItem<double>("monitor_height");
+        title = GameState::clientConfig.getItem<std::string>("game_title");
+    } catch (std::exception &oof) {}
+
+    display = Display(title, static_cast<int>(width),
+                             static_cast<int>(height));
+    
     // Select an OpenGL 3.0 profile.
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
 
-    client->getDisplay()->create();
+    display.create();
 
-    context = SDL_GL_CreateContext(client->getDisplay()->getWindow()); 
+    context = SDL_GL_CreateContext(display.getWindow()); 
 
     GLenum err;
     glewExperimental = GL_TRUE;
@@ -92,7 +99,7 @@ int GraphicsEngine::drawLoop()
     cam.pos = glm::vec3(0.0, 0.0, 5.0);
     cam.angle = glm::vec3(0.0, 0.0, 0.0);
 
-    while (client->isRunning()) {
+    while (GameState::isRunning()) {
         glm::mat4 view = glm::lookAt(cam.pos,
                                      cam.pos+cam.angle, 
                                      glm::vec3(0.0f, 1.0f, 0.0f));
@@ -138,7 +145,7 @@ int GraphicsEngine::drawLoop()
 
         // draw text
 
-        SDL_GL_SwapWindow(client->getDisplay()->getWindow());
+        SDL_GL_SwapWindow(display.getWindow());
     }
 
     return 0;
@@ -152,4 +159,14 @@ void GraphicsEngine::addShader(std::string shaderName, Shader shader)
 Camera* GraphicsEngine::getCamera()
 {
     return &cam;
+}
+
+Display* GraphicsEngine::getDisplay()
+{
+    return &display;
+}
+
+void GraphicsEngine::setDisplay(Display d)
+{
+    display = d;
 }

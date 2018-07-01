@@ -1,11 +1,10 @@
 #include <game.hpp>
+#include <game_class.hpp>
 
 Game::Game()
 {
     deltaTime = 0;
     cycles = 0;
-
-    running = true;
 }
 
 Game::~Game()
@@ -15,10 +14,10 @@ Game::~Game()
 
 bool Game::isRunning()
 {
-    return running;
+    return GameState::isRunning();
 }
 
 void Game::stopGame()
 {
-    running = false;
+    GameState::stopGame();
 }

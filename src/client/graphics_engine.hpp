@@ -12,9 +12,10 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/noise.hpp>
 
-#include <game.hpp>
+#include <game_class.hpp>
 #include <client/shader.hpp>
 #include <client/camera.hpp>
+#include <client/display.hpp>
 
 class GraphicsEngine
 {
@@ -22,15 +23,16 @@ class GraphicsEngine
         SDL_GLContext context;
         SDL_Window* window;
 
-        Game* client;
+        Display display;
         Camera cam;
         std::unordered_map<std::string, Shader> shaders;
     public:
         GraphicsEngine();
-        GraphicsEngine(Game*);
        ~GraphicsEngine();
 
         Camera* getCamera();
+        Display* getDisplay();
+        void setDisplay(Display);
     
         int init();
         int drawLoop();

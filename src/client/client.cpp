@@ -1,6 +1,4 @@
 #include <client/client.hpp>
-#include <script/script.hpp>
-#include <script/script_exception.hpp>
 #include <config.hpp>
 
 #include <iostream>
@@ -21,48 +19,21 @@ Client::~Client()
 
 void Client::init()
 {
+    GameState::createConfig();
 
-    const std::string configFile = "config/loxel.conf";
+    graphicsEngine = GraphicsEngine();
+    inputHandler = InputHandler();
 
-    Configuration clientConfig;
-    try {
-        clientConfig.loadfile(configFile);
-    } catch (ScriptException::FileNotFound &fnf) {
-        clientConfig.createfile(configFile);
-        clientConfig.loadfile(configFile);
-    }
+    GameState::readConfig();
 
-    // Initialize configs and their default values
-    clientConfig.addItem("monitor_width", 1280);
-    clientConfig.addItem("monitor_height", 720);
-    clientConfig.addItem("game_title", std::string("loxel"));
-
-    clientConfig.readConfig();
-
-    double width;
-    double height;
-    std::string title;
-
-    try {
-        width = clientConfig.getItem<double>("monitor_width");
-        height = clientConfig.getItem<double>("monitor_height");
-        title = clientConfig.getItem<std::string>("game_title");
-    } catch (std::exception &oof) {}
-
-    // TODO error handling
-
-    display = Display(title, static_cast<int>(width), static_cast<int>(height));
-
-    graphicsEngine = GraphicsEngine(this);
     // this creates the window
     graphicsEngine.init();
-
-    inputHandler = InputHandler(this);
 }
 
 void Client::gameLoop()
 {
-    while (running) {
+    while (GameState::isRunning()) {
+        
         
     }
 }
@@ -88,9 +59,4 @@ void Client::cleanup()
         gameThread.join();
     if (inputThread.joinable())
         inputThread.join();
-}
-
-Display* Client::getDisplay()
-{
-    return &display;
 }

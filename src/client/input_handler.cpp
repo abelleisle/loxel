@@ -5,23 +5,18 @@
 InputHandler::InputHandler()
 {}
 
-InputHandler::InputHandler(Game* client)
-    : client(client)
-{}
-
 InputHandler::~InputHandler()
 {
-    client = NULL;
 }
 
 void InputHandler::inputLooper()
 {
-    while (client->isRunning()) {
+    while (GameState::isRunning()) {
         static SDL_Event e;
         while (SDL_PollEvent(&e)) {
             switch(e.type) {
             case SDL_QUIT:
-                client->stopGame();
+                GameState::stopGame();
                 break;
             default: break;
             }

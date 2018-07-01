@@ -3,16 +3,12 @@
 
 #include <thread>
 
-#include <client/display.hpp>
-
 class Game
 {
     private:
     protected:
         int deltaTime;
         unsigned long long cycles;
-
-        bool running;
 
         std::thread gameThread;
         std::thread inputThread;
@@ -28,8 +24,6 @@ class Game
 
         bool isRunning();
         void stopGame();
-
-        virtual Display* getDisplay(){return NULL;}
 };
 
 #endif // GAME_HPP

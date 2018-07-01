@@ -3,15 +3,13 @@
 
 #include <SDL2/SDL.h>
 
-#include <game.hpp>
+#include <game_class.hpp>
 
 class InputHandler
 {
     private:
-        Game* client;
     public:
         InputHandler();
-        InputHandler(Game*);
        ~InputHandler();
 
         void inputLooper();
