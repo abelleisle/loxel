@@ -14,11 +14,11 @@ Client::Client()
 
 Client::~Client()
 {
-    
 }
 
 void Client::init()
 {
+    GameState::setGameObject(this);
     GameState::createConfig();
 
     graphicsEngine = GraphicsEngine();
@@ -32,9 +32,14 @@ void Client::init()
 
 void Client::gameLoop()
 {
+    float accum = 0.0;
     while (GameState::isRunning()) {
-        
-        
+        accum += deltaTime;
+        if (accum >= 50) {
+            accum = 0;
+        } else {
+            SDL_Delay(deltaTime);
+        }
     }
 }
 
@@ -59,4 +64,5 @@ void Client::cleanup()
         gameThread.join();
     if (inputThread.joinable())
         inputThread.join();
+    GameState::cleanup();
 }

@@ -13,7 +13,7 @@ Display::Display(std::string title, int width, int height)
 
 Display::Display()
 {
-    Display("loxel", 1920, 1080);
+    Display("loxel", 1280, 720);
 }
 
 void Display::create()

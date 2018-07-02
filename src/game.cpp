@@ -21,3 +21,14 @@ void Game::stopGame()
 {
     GameState::stopGame();
 }
+
+float Game::getDeltaTime()
+{
+    return deltaTime;
+}
+
+float Game::setDeltaTime(float dt)
+{
+    deltaTime = dt;
+    return dt;
+}

@@ -1,6 +1,8 @@
 #include <client/graphics_engine.hpp>
 
 #include <iostream>
+#include <thread>
+#include <chrono>
 
 GraphicsEngine::GraphicsEngine()
 {
@@ -18,7 +20,6 @@ GraphicsEngine::~GraphicsEngine()
 
 int GraphicsEngine::init()
 {
-
     double width;
     double height;
     std::string title;
@@ -62,11 +63,11 @@ int GraphicsEngine::init()
     world.addUniform("view");
     world.addUniform("model");
 
-    GLint a = world.addAttribute("vertex");
+    world.addAttribute("vertex");
 
     addShader("world", world);
 
-    glEnableVertexAttribArray(a);
+    glEnableVertexAttribArray(shaders.at("world").getAttribute("vertex"));
 
     glUseProgram(world.getProgram());
 
@@ -96,12 +97,18 @@ int GraphicsEngine::drawLoop()
         0.0, 1.0, 0.0,
     };
 
-    cam.pos = glm::vec3(0.0, 0.0, 5.0);
-    cam.angle = glm::vec3(0.0, 0.0, 0.0);
+    float startTime;
+    float endTime;
 
     while (GameState::isRunning()) {
+        // update time schtuff
+        startTime = SDL_GetTicks();
+        GameState::gameObject()->setDeltaTime(startTime - endTime);
+        endTime = startTime;
+
+        cam.update();
         glm::mat4 view = glm::lookAt(cam.pos,
-                                     cam.pos+cam.angle, 
+                                     cam.pos+cam.rot, 
                                      glm::vec3(0.0f, 1.0f, 0.0f));
 
         glm::mat4 projection = glm::perspective(45.0f, 

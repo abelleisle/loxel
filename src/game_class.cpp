@@ -5,7 +5,8 @@
 namespace GameState
 {
     Configuration clientConfig;
-    bool __game_running = true;
+    bool running = true;
+    Game* gameObj;
 
     void createConfig()
     {
@@ -27,11 +28,26 @@ namespace GameState
 
     void stopGame()
     {
-        __game_running = false;
+        running = false;
     }
 
     bool isRunning()
     {
-        return __game_running;
+        return running;
+    }
+
+    void setGameObject(Game* obj)
+    {
+        gameObj = obj;
+    }
+
+    Game* gameObject()
+    {
+        return gameObj;
+    }
+
+    void cleanup()
+    {
+        gameObj = NULL;
     }
 }

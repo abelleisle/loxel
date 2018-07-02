@@ -24,6 +24,8 @@ class Client : public Game
         void input();
         void graphics();
         void cleanup();
+
+        GraphicsEngine* getGraphicsEngine() {return &graphicsEngine;}
 };
 
 #endif // CLIENT_HPP

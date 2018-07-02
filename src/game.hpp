@@ -3,11 +3,13 @@
 
 #include <thread>
 
+class GraphicsEngine;
+
 class Game
 {
     private:
     protected:
-        int deltaTime;
+        float deltaTime;
         unsigned long long cycles;
 
         std::thread gameThread;
@@ -22,8 +24,13 @@ class Game
         virtual void graphics() = 0;
         virtual void cleanup() = 0;
 
+        float getDeltaTime();
+        float setDeltaTime(float);
+
         bool isRunning();
         void stopGame();
+
+        virtual GraphicsEngine* getGraphicsEngine() {return nullptr;}
 };
 
 #endif // GAME_HPP
