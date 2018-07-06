@@ -34,8 +34,8 @@ int GraphicsEngine::init()
                              static_cast<int>(height));
     
     // Select an OpenGL 3.0 profile.
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
 
     display.create();
 
@@ -99,6 +99,8 @@ int GraphicsEngine::drawLoop()
 
     float startTime;
     float endTime;
+
+    cam.pos.z = 5;
 
     while (GameState::isRunning()) {
         // update time schtuff

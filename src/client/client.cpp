@@ -37,6 +37,21 @@ void Client::gameLoop()
         accum += deltaTime;
         if (accum >= 50) {
             accum = 0;
+            std::vector<int> primes;
+            for (int i = 3; i < 10000000 && GameState::isRunning(); i += 2) {
+                bool prime = true;
+                for (int n = 3; n < i; n += 2) {
+                    if (i % n == 0) {
+                        prime = false;
+                        break;
+                    }
+                }
+                if (prime) {
+                    primes.push_back(i);
+                    std::cout << i << " is prime!" << std::endl;
+                }
+            }
+            std::cout << "Done!" << std::endl;
         } else {
             SDL_Delay(deltaTime);
         }
