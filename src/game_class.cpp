@@ -1,12 +1,12 @@
 #include <game_class.hpp>
-#include <script/script.hpp>
-#include <script/script_exception.hpp>
 
 namespace GameState
 {
     Configuration clientConfig;
     bool running = true;
     Game* gameObj;
+
+    Script script;
 
     void createConfig()
     {
@@ -49,5 +49,10 @@ namespace GameState
     void cleanup()
     {
         gameObj = NULL;
+    }
+
+    Script* getGlobalScript()
+    {
+        return &script;
     }
 }

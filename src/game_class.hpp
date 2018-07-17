@@ -3,6 +3,8 @@
 
 #include <game.hpp>
 #include <config.hpp>
+#include <script/script.hpp>
+#include <script/script_exception.hpp>
 
 namespace GameState
 {
@@ -17,5 +19,7 @@ namespace GameState
     Game* gameObject();
 
     void cleanup();
+
+    Script* getGlobalScript();
 }
 #endif //GAME_CLASS_HPP

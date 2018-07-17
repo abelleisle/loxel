@@ -3,8 +3,9 @@
 
 #include <glm/glm.hpp>
 #include <game_class.hpp>
+#include <script/scriptable.hpp>
 
-class Camera
+class Camera : public Scriptable
 {
     public:
         glm::vec3 pos;
@@ -19,6 +20,8 @@ class Camera
         Camera();
 
         void update();
+
+        void registerScript();
 };
 
 #endif // CAMERA_HPP

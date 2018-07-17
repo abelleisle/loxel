@@ -1,5 +1,14 @@
 #include <client/camera.hpp>
+#include <LuaBridge/LuaBridge.h>
 #include <iostream>
+
+void Camera::registerScript()
+{
+    luabridge::getGlobalNamespace(script->getState())
+        .beginClass<Camera>("Camera")
+        .addConstructor<void (*)()>()
+        .endClass();
+}
 
 Camera::Camera()
 {
