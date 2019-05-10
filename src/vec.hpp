@@ -9,6 +9,9 @@ class vec2
         T y;
 
         vec2(T x = 0, T y = 0): x(x), y(y) {}
+
+        T getX() {return x;}
+        T getY() {return y;}
 };
 
 template <typename T>
