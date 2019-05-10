@@ -8,7 +8,7 @@ OBJ_FILES = $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SRC_FILES))
 
 FLAGS = -m64 -std=c++17 -Wall -Werror -Wextra -Wpedantic -g
 REL_FLAGS = -O2
-LIBS = -Llib -llua5.3 -lpthread -lGL -lGLEW -lfreetype -lSDL2 -lSDL2main -lSDL2_image
+LIBS = -Llib -llua5.3 -lpthread -lglfw -lGL -lGLEW -lfreetype
 INCS = -Isrc -Ilib
 
 EXEC = loxel

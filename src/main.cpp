@@ -199,10 +199,8 @@ int main()
     lua_close(L);
 
     Game *c = new Client();
+
     c->init();
-    c->loop();
-    c->input();
-    c->graphics();
     c->cleanup();
 
     delete c;
