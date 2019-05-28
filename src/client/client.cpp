@@ -8,6 +8,8 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+#include <boost/asio.hpp>
+
 #include <client/client.hpp>
 
 Client::Client()
@@ -18,34 +20,22 @@ Client::~Client()
 
 int Client::init()
 {
+    // Start GLFW
     if (!glfwInit()) {
-        std::cerr << "ERROR: Could not start GLFW\n";
-        return 1;
+        std::cerr << "ERROR: Could not start GLFW" << std::endl;
+        return -1;
     }
 
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    render.init();
 
-    GLFWwindow* window = glfwCreateWindow(640, 480, "Hello Triangle", NULL, NULL);
-    if (!window) {
-        std::cerr << "ERROR: Could not open GLFW window\n";
-        glfwTerminate();
-        return 1;
-    }
+    boost::asio::thread_pool t_pool(
+        std::thread::hardware_concurrency()
+    );
 
-    glfwMakeContextCurrent(window);
+    boost::asio::post(t_pool, [&](){render.start();});
 
-    glewExperimental = GL_TRUE;
-    glewInit();
-
-    const GLubyte* renderer = glGetString(GL_RENDERER);
-    const GLubyte* version = glGetString(GL_VERSION);
-    std::cout << "Render: " << renderer;
-    std::cout << "OpenGL version supported " << version;
-
-    std::this_thread::sleep_for(std::chrono::seconds(5));
+    render.stop();
+    t_pool.join();
 
     return 0;
 }
@@ -66,5 +56,4 @@ void Client::graphics()
 
 void Client::cleanup()
 {
-    glfwTerminate();
 }

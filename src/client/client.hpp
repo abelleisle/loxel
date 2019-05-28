@@ -3,10 +3,14 @@
 
 #include <game.hpp>
 
+#include <client/RenderSystem.hpp>
+
 class Client : public Game
 {
     private:
         void gameLoop();
+        RenderSystem render;
+
     public:
         Client();
         virtual ~Client();
