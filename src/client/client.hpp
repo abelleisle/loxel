@@ -8,15 +8,16 @@
 class Client : public Game
 {
     private:
-        void gameLoop();
         RenderSystem render;
+
+        void loop();
 
     public:
         Client();
         virtual ~Client();
 
         int init();
-        void loop();
+        void start();
         void input();
         void graphics();
         void cleanup();

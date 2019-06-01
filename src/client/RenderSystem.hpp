@@ -16,6 +16,9 @@ class RenderSystem
         int init();
         int start();
         void stop();
+        void loop();
+
+        GLFWwindow* getWindow();
 };
 
 #endif // RENDERSYSTEM_HPP

@@ -1,5 +1,6 @@
 SRC_DIR = src
 OBJ_DIR = out
+BIN_DIR = bin
 DIR_CRT = mkdir -p $(@D)
 
 #SRC_FILES = $(wildcard **/*.cpp)
@@ -12,7 +13,7 @@ REL_FLAGS = -O2
 LIBS = -Llib -llua5.3 -lpthread -lglfw -lGL -lGLEW -lfreetype
 INCS = -Isrc -Ilib
 
-EXEC = loxel
+EXEC = $(BIN_DIR)/loxel
 
 all: debug
 

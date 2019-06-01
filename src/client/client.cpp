@@ -28,24 +28,26 @@ int Client::init()
 
     render.init();
 
-    boost::asio::thread_pool t_pool(
-        std::thread::hardware_concurrency()
-    );
-
-    boost::asio::post(t_pool, [&](){render.start();});
-
-    render.stop();
-    t_pool.join();
-
     return 0;
 }
 
-void Client::gameLoop()
-{}
+void Client::start()
+{
+    std::thread renderThread([&](){render.start();});
+    std::thread mainThread([&](){this->loop();});
+
+    renderThread.join();
+    mainThread.join();
+}
 
 void Client::loop()
 {
-    //gameThread = std::thread(&Client::gameLoop, this);
+    do {
+
+    } while (glfwGetKey(render.getWindow(), GLFW_KEY_ESCAPE) != GLFW_PRESS &&
+            !glfwWindowShouldClose(render.getWindow()));
+
+    render.stop();
 }
 
 void Client::input()
@@ -55,5 +57,4 @@ void Client::graphics()
 {}
 
 void Client::cleanup()
-{
-}
+{}

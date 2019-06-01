@@ -57,15 +57,7 @@ int RenderSystem::start()
 
 #endif
 
-    do {
-        // Clear screen
-        glClear(GL_COLOR_BUFFER_BIT);
-
-        // Swap buffer
-        glfwSwapBuffers(window);
-        glfwPollEvents();
-    } while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS &&
-            !glfwWindowShouldClose(window));
+    loop();
 
     return 0;
 }
@@ -73,4 +65,22 @@ int RenderSystem::start()
 void RenderSystem::stop()
 {
     running = false;
+}
+
+
+void RenderSystem::loop()
+{
+    do {
+        // Clear screen
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        // Swap buffer
+        glfwSwapBuffers(window);
+        glfwPollEvents();
+    } while (running);
+}
+
+GLFWwindow* RenderSystem::getWindow()
+{
+    return window;
 }
