@@ -11,10 +11,10 @@ namespace Script
 
     std::string printValue(std::string name, LuaRef value, int depth)
     {
-        std::string output;
-
         if (value.isNil())
-            return output;
+            return "";
+
+        std::string output;
 
         output += tabs(depth) + name + " = ";
 
