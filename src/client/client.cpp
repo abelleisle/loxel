@@ -12,6 +12,9 @@
 
 #include <client/client.hpp>
 
+#include <config/config.hpp>
+#include <script/script.hpp>
+
 Client::Client()
 {}
 
@@ -42,6 +45,21 @@ void Client::start()
 
 void Client::loop()
 {
+    lua_State *L = luaL_newstate();
+    luaL_openlibs(L);
+
+    if (luaL_loadfile(L, "config/config.lua") || lua_pcall(L, 0, 0, 0)) {
+        std::cout << "File not found" << std::endl;
+    }
+
+    LuaRef v = getGlobal(L, "game");
+    LuaRef n = getGlobal(L, "value");
+    //lua_getglobal(L, "game");
+    //Script::print_table(L);
+    //LuaRef a = getGlobal(L, "value");
+    std::cout << Script::printValue("game", v) << std::endl;
+    std::cout << Script::printValue("value", n) << std::endl;
+
     do {
 
     } while (glfwGetKey(render.getWindow(), GLFW_KEY_ESCAPE) != GLFW_PRESS &&
