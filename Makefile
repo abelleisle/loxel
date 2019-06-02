@@ -10,8 +10,8 @@ OBJ_FILES = $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SRC_FILES))
 FLAGS = -m64 -std=c++17 -Wall -Werror -Wextra -Wpedantic
 DEB_FLAGS = -g -D DEBUG
 REL_FLAGS = -O2
-LIBS = -Llib -llua5.3 -lpthread -lglfw -lGL -lGLEW -lfreetype
-INCS = -Isrc -Ilib
+LIBS = -Llib -Llib/lua -lluajit -lpthread -lglfw -lGL -lGLEW -lfreetype
+INCS = -Isrc -Ilib -Ilib/LuaBridge/Source
 
 EXEC = $(BIN_DIR)/loxel
 
