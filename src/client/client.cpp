@@ -60,6 +60,45 @@ void Client::loop()
     std::cout << Script::printValue("game", v) << std::endl;
     std::cout << Script::printValue("value", n) << std::endl;
 
+    LuaRef s (L);
+    s = newTable(L);
+
+    s["title"] = "Loxel";
+    s["monitor"] = newTable(L);
+    s["monitor"]["width"] = 1920;
+    s["monitor"]["height"] = 1080;
+    
+    LuaRef m = s["monitor"];
+    m["fuck"] = newTable(L);
+    m = m["fuck"];
+    m["shit"] = "hi";
+
+    //config.addEntry("game.title")
+    //      .addEntry("game.window.height")
+    //      .addEntry("game.window.width")
+    //      .addEntry("game.window.fullscreen")
+
+    //      .addEntry("game.input.keyboard.walk")
+    //      .addEntry("game.input.keyboard.back")
+    //      .addEntry("game.input.keyboard.strafe_left")
+    //      .addEntry("game.input.keyboard.strafe_right")
+
+    //      .addEntry("game.input.mouse.sensitivity");
+
+    std::cout << Script::printValue("game", s) << std::endl;
+
+    LuaRef g = getGlobal(L, "game");
+
+    Configuration config("config/config.lua");
+    config.addOption("client", "title", "butt")
+          .addOption("client.display", "width", 1920)
+          .addOption("client.display", "height", 1080);
+
+    
+
+    LuaRef a = getGlobal(L, "client");
+    std::cout << Script::printValue("client", a) << std::endl;
+
     do {
 
     } while (glfwGetKey(render.getWindow(), GLFW_KEY_ESCAPE) != GLFW_PRESS &&
